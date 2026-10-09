@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif FDP — Analisis Desimal Berulang (40 Soal)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+:root {
+  --bg-0: #f8fafc;
+  --bg-1: #f1f5f9;
+  --bg-2: #e2e8f0;
+  --card: #ffffff;
+  --card-brd: #e2e8f0;
+  --accent-primary: #4f46e5;
+  --accent-secondary: #2563eb;
+  --accent-success: #059669;
+  --accent-danger: #dc2626;
+  --accent-warning: #d97706;
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --shadow-glow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 40%),
+    var(--bg-0);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 20px 140px;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 4px 16px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.brand svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--accent-primary);
+  stroke-width: 2;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: var(--accent-success);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-badge.offline {
+  background: #fffbebf1;
+  color: var(--accent-warning);
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-success);
+}
+.status-badge.offline .status-dot {
+  background: var(--accent-warning);
+}
+
+.score-counter {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  background: #e0e7ff;
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.reset-btn {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: #ffffff;
+  border: 1px solid var(--card-brd);
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.reset-btn:hover {
+  background: #fee2e2;
+  color: var(--accent-danger);
+  border-color: #fca5a5;
+}
+
+.progress-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
+  transition: width .3s ease;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-brd);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-glow);
+}
+
+.page-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.page-sub {
+  color: var(--text-muted);
+  font-size: .92rem;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent-secondary);
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.option-btn {
+  background: #ffffff;
+  border: 1.5px solid var(--card-brd);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: .98rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  background: #f8fafc;
+}
+
+.option-btn.correct {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-success);
+  color: #065f46;
+  font-weight: 600;
+}
+
+.option-btn.wrong {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: var(--accent-danger);
+  color: #991b1b;
+}
+
+.option-btn:disabled {
+  cursor: default;
+}
+
+.badge-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+
+.option-btn.correct .badge-letter {
+  background: var(--accent-success);
+  color: #ffffff;
+}
+
+.option-btn.wrong .badge-letter {
+  background: var(--accent-danger);
+  color: #ffffff;
+}
+
+.feedback-container {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 12px;
+  display: none;
+  animation: fadein 0.3s ease;
+}
+
+.feedback-container.show {
+  display: block;
+}
+
+.feedback-container.correct-style {
+  background: rgba(16, 185, 129, 0.06);
+  border-left: 4px solid var(--accent-success);
+  color: #065f46;
+}
+
+.feedback-container.wrong-style {
+  background: rgba(220, 38, 38, 0.06);
+  border-left: 4px solid var(--accent-danger);
+  color: #991b1b;
+}
+
+.explanation-title {
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans';
+  font-size: .95rem;
+  margin-bottom: 6px;
+}
+
+.explanation-body {
+  font-size: .92rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.grid-navigation {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .grid-navigation {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.nav-dot {
+  aspect-ratio: 1;
+  background: #ffffff;
+  border: 1px solid var(--card-brd);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-dot:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.nav-dot.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+}
+
+.nav-dot.answered-correct {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-success);
+  border-color: var(--accent-success);
+}
+
+.nav-dot.answered-wrong {
+  background: rgba(220, 38, 38, 0.15);
+  color: var(--accent-danger);
+  border-color: var(--accent-danger);
+}
+
+.center { text-align: center; }
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  padding: 14px 20px 20px;
+  border-top: 1px solid #cbd5e1;
+}
+.bottom-nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-btn {
+  flex: none;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--text-primary);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans';
+  cursor: pointer;
+  font-size: .9rem;
+  transition: all 0.2s;
+}
+.nav-btn:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+.nav-btn.primary {
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  flex: 1;
+  text-align: center;
+}
+.nav-btn.primary:hover:not(:disabled) {
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+.nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+.page-jump {
+  flex: none;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'Inter';
+  font-size: .85rem;
+  max-width: 100px;
+}
+.page-counter {
+  font-size: .8rem;
+  color: var(--text-muted);
+  background: var(--card);
+  border: 1px solid var(--card-brd);
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <div class="top-header">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V5A2.5 2.5 0 0 1 6.5 2.5H20v14H6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Evaluasi Akademik FDP</span>
+    </div>
+    
+    <div class="header-meta">
+      <div class="status-badge" id="storage-status">
+        <span class="status-dot"></span>
+        <span>Tersimpan Otomatis</span>
+      </div>
+      <div class="page-counter" id="page-counter">Soal 1 dari 40</div>
+      <div class="score-counter" id="score-counter">Benar: 0 / 40</div>
+      <button class="reset-btn" onclick="app.confirmReset()" title="Reset seluruh jawaban">Reset ↺</button>
+    </div>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
+
+  <div id="page-content"></div>
+
+</div>
+
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-btn" id="btn-prev" disabled>‹ Kembali</button>
+    <select class="page-jump" id="page-jump" title="Loncat ke nomor soal"></select>
+    <button class="nav-btn primary" id="btn-next">Lanjut ›</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+// Database 40 Soal FDP, Desimal Berulang, dan Penerapan Praktis
+const QUESTIONS = [
+  {
+    id: 1,
+    eyebrow: "Konversi Desimal Berulang 1 Digit",
+    title: "Deret Geometri Tak Hingga Sederhana",
+    sub: "Konversikan desimal berulang paling dasar menuju bentuk pecahan.",
+    q: "Ubah bentuk desimal berulang berikut menjadi pecahan biasa yang paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,3333\\dots\\)</div>",
+    options: [
+      "\\(\\frac{3}{10}\\)",
+      "\\(\\frac{33}{100}\\)",
+      "\\(\\frac{1}{3}\\)",
+      "\\(\\frac{1}{9}\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Misalkan \\(x = 0,3333\\dots\\). Maka, \\(10x = 3,3333\\dots\\). Dengan mengurangkan kedua persamaan:<br>\\(10x - x = 3,3333\\dots - 0,3333\\dots\\)<br>\\(9x = 3\\)<br>\\(x = \\frac{3}{9} = \\frac{1}{3}\\)."
+  },
+  {
+    id: 2,
+    eyebrow: "Konversi Desimal Berulang 1 Digit",
+    title: "Nilai Limit Desimal Sederhana",
+    sub: "Menelaah nilai pecahan dasar satu digit berulang.",
+    q: "Berapakah bentuk pecahan murni dari nilai berikut?<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,6666\\dots\\)</div>",
+    options: [
+      "\\(\\frac{6}{10}\\)",
+      "\\(\\frac{3}{5}\\)",
+      "\\(\\frac{66}{99}\\) (belum sederhana)",
+      "\\(\\frac{2}{3}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Misalkan \\(x = 0,6666\\dots\\). Maka \\(10x = 6,6666\\dots\\). Pengurangan aljabar menghasilkan:<br>\\(9x = 6 \\implies x = \\frac{6}{9} = \\frac{2}{3}\\)."
+  },
+  {
+    id: 3,
+    eyebrow: "Aturan Sembilan Dasar",
+    title: "Aturan Pembagi Sembilan",
+    sub: "Memahami representasi pecahan satu digit berulang terkecil.",
+    q: "Jika desimal berulang bernilai \\(0,1111\\dots\\), pecahan sederhana mana yang tepat mewakili nilai tersebut?",
+    options: [
+      "\\(\\frac{1}{10}\\)",
+      "\\(\\frac{1}{9}\\)",
+      "\\(\\frac{1}{99}\\)",
+      "\\(\\frac{11}{100}\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Sesuai pembuktian aljabar:<br>\\(10x = 1,111\\dots\\)<br>\\(x = 0,111\\dots\\)<br>\\(9x = 1 \\implies x = \\frac{1}{9}\\)."
+  },
+  {
+    id: 4,
+    eyebrow: "Aturan Sembilan Dasar",
+    title: "Representasi Desimal Berulang Tinggi",
+    sub: "Mencari pecahan dari satu digit bernilai tinggi yang berulang.",
+    q: "Tentukan bentuk pecahan paling sederhana dari desimal berulang berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,7777\\dots\\)</div>",
+    options: [
+      "\\(\\frac{7}{9}\\)",
+      "\\(\\frac{77}{100}\\)",
+      "\\(\\frac{7}{10}\\)",
+      "\\(\\frac{3}{4}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Berdasarkan teorema generalisasi desimal berulang 1 digit: \\(0,aaaa\\dots = \\frac{a}{9}\\). Maka \\(0,7777\\dots = \\frac{7}{9}\\)."
+  },
+  {
+    id: 5,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Pengulangan Dua Angka Independen",
+    sub: "Memahami manipulasi aljabar dengan pengali seratus.",
+    q: "Nyatakan desimal berulang berikut sebagai pecahan biasa paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,161616\\dots\\)</div>",
+    options: [
+      "\\(\\frac{16}{100}\\)",
+      "\\(\\frac{4}{25}\\)",
+      "\\(\\frac{16}{90}\\)",
+      "\\(\\frac{16}{99}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Karena periode pengulangan terdiri atas 2 digit (16), kita gunakan pengali \\(10^2 = 100\\):<br>\\(100x = 16,161616\\dots\\)<br>\\(x = 0,161616\\dots\\)<br>\\(99x = 16 \\implies x = \\frac{16}{99}\\)."
+  },
+  {
+    id: 6,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Penyederhanaan Fraksional Kompleks",
+    sub: "Mengonversi desimal berulang dua digit dengan penyederhanaan tingkat lanjut.",
+    q: "Tentukan nilai pecahan paling sederhana dari bentuk desimal berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,272727\\dots\\)</div>",
+    options: [
+      "\\(\\frac{27}{100}\\)",
+      "\\(\\frac{3}{11}\\)",
+      "\\(\\frac{27}{99}\\)",
+      "\\(\\frac{9}{33}\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Konversi dasar menghasilkan pecahan \\(\\frac{27}{99}\\). Kedua ruas dibagi dengan FPB dari 27 dan 99, yaitu 9:<br>\\(\\frac{27 \\div 9}{99 \\div 9} = \\frac{3}{11}\\)."
+  },
+  {
+    id: 7,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Periode Angka Kuadratik",
+    sub: "Menemukan bentuk fraksional sederhana dari periode berulang berkelipatan 9.",
+    q: "Bentuk pecahan biasa yang setara dengan desimal berulang berikut adalah:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,363636\\dots\\)</div>",
+    options: [
+      "\\(\\frac{36}{100}\\)",
+      "\\(\\frac{9}{25}\\)",
+      "\\(\\frac{4}{11}\\)",
+      "\\(\\frac{36}{90}\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Nilai konversinya adalah \\(\\frac{36}{99}\\). Jika disederhanakan dengan membagi pembilang dan penyebut dengan 9:<br>\\(\\frac{36 \\div 9}{99 \\div 9} = \\frac{4}{11}\\)."
+  },
+  {
+    id: 8,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Periode Angka Nol-Sembilan",
+    sub: "Menganalisis desimal berulang dengan awalan nol.",
+    q: "Ubah bentuk desimal berikut menjadi pecahan biasa yang paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,090909\\dots\\)</div>",
+    options: [
+      "\\(\\frac{1}{11}\\)",
+      "\\(\\frac{9}{100}\\)",
+      "\\(\\frac{1}{111}\\)",
+      "\\(\\frac{9}{90}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Karena periode berulangnya adalah 09, maka rasionya ditulis \\(\\frac{9}{99}\\). Jika disederhanakan dengan membagi pembilang dan penyebut dengan 9, diperoleh \\(\\frac{1}{11}\\)."
+  },
+  {
+    id: 9,
+    eyebrow: "Konversi Desimal Berulang 3 Digit",
+    title: "Pola Pengulangan Tiga Digit",
+    sub: "Pembuktian dengan sistem persamaan linear aljabar pengali 1000.",
+    q: "Konversikan desimal berulang tiga digit berikut menjadi pecahan biasa yang paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,125125125\\dots\\)</div>",
+    options: [
+      "\\(\\frac{125}{1000}\\)",
+      "\\(\\frac{1}{8}\\)",
+      "\\(\\frac{125}{990}\\)",
+      "\\(\\frac{125}{999}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Misalkan \\(z = 0,125125125\\dots\\). Karena polanya 3 digit, kalikan dengan 1000:<br>\\(1000z = 125,125125\\dots\\)<br>\\(1000z - z = 125 \\implies 999z = 125 \\implies z = \\frac{125}{999}\\)."
+  },
+  {
+    id: 10,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Kalkulasi Fraksional Desimal Sembilan Puluh Sembilan",
+    sub: "Penyederhanaan dua digit kelipatan besar.",
+    q: "Pecahan biasa paling sederhana dari desimal berulang \\(0,454545\\dots\\) adalah...",
+    options: [
+      "\\(\\frac{9}{20}\\)",
+      "\\(\\frac{5}{11}\\)",
+      "\\(\\frac{45}{99}\\) (belum sederhana)",
+      "\\(\\frac{45}{100}\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Desimal berulang \\(0,454545\\dots = \\frac{45}{99}\\). Pembilang dan penyebut disederhanakan dengan dibagi 9:<br>\\(\\frac{45 \\div 9}{99 \\div 9} = \\frac{5}{11}\\)."
+  },
+  {
+    id: 11,
+    eyebrow: "Konversi Desimal Berulang 2 Digit",
+    title: "Analisis Desimal Berulang Delapan Belas",
+    sub: "Konversi rasio desimal 18.",
+    q: "Bentuk pecahan biasa paling sederhana dari \\(0,181818\\dots\\) adalah...",
+    options: [
+      "\\(\\frac{9}{50}\\)",
+      "\\(\\frac{18}{100}\\)",
+      "\\(\\frac{2}{11}\\)",
+      "\\(\\frac{18}{99}\\) (belum sederhana)"
+    ],
+    correctIdx: 2, // C
+    explain: "Desimal \\(0,181818\\dots = \\frac{18}{99}\\). Dibagi dengan FPB-nya yaitu 9:<br>\\(\\frac{18 \\div 9}{99 \\div 9} = \\frac{2}{11}\\)."
+  },
+  {
+    id: 12,
+    eyebrow: "Representasi Campuran",
+    title: "Konversi di Atas Nilai Satu",
+    sub: "Menyelesaikan desimal berulang campuran di atas satu bulat.",
+    q: "Ubah bentuk desimal berulang berikut menjadi pecahan campuran paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(1,3333\\dots\\)</div>",
+    options: [
+      "\\(1\\frac{1}{3}\\)",
+      "\\(1\\frac{3}{10}\\)",
+      "\\(\\frac{133}{100}\\)",
+      "\\(1\\frac{1}{9}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Pisahkan bilangan bulat dan desimalnya:<br>\\(1,3333\\dots = 1 + 0,3333\\dots\\)<br>Sesuai aturan sembilan: \\(0,3333\\dots = \\frac{3}{9} = \\frac{1}{3}\\).<br>Maka pecahan campurannya adalah \\(1\\frac{1}{3}\\)."
+  },
+  {
+    id: 13,
+    eyebrow: "Representasi Campuran",
+    title: "Konversi Campuran Dua Digit",
+    sub: "Konversi desimal berulang dua digit di atas satuan bulat.",
+    q: "Ubah bentuk desimal berulang berikut menjadi pecahan campuran paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(2,161616\\dots\\)</div>",
+    options: [
+      "\\(2\\frac{4}{25}\\)",
+      "\\(2\\frac{16}{100}\\)",
+      "\\(2\\frac{16}{99}\\)",
+      "\\(\\frac{216}{99}\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Pisahkan bagian bulat dan desimal: \\(2,161616\\dots = 2 + 0,161616\\dots\\). Bagian desimal berulang \\(0,161616\\dots = \\frac{16}{99}\\). Maka pecahan campurannya adalah \\(2\\frac{16}{99}\\)."
+  },
+  {
+    id: 14,
+    eyebrow: "Arah Konversi Terbalik",
+    title: "Konversi Pecahan ke Desimal",
+    sub: "Menganalisis periode pembagian bilangan sembilan.",
+    q: "Tentukan bentuk desimal berulang dari pecahan biasa berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(\\frac{5}{9}\\)</div>",
+    options: [
+      "\\(0,5\\)",
+      "\\(0,050505\\dots\\)",
+      "\\(0,454545\\dots\\)",
+      "\\(0,5555\\dots\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Pembagian konvensional menghasilkan \\(5 \\div 9 = 0,5555\\dots\\). Sesuai Aturan Sembilan, pembagi sembilan langsung menghasilkan digit berulang \\(0,aaaa\\dots\\)."
+  },
+  {
+    id: 15,
+    eyebrow: "Arah Konversi Terbalik",
+    title: "Konversi Pembagi Sebelas",
+    sub: "Menganalisis periode pembagian bilangan sebelas.",
+    q: "Tentukan bentuk desimal berulang dari pecahan biasa berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(\\frac{8}{11}\\)</div>",
+    options: [
+      "\\(0,727272\\dots\\)",
+      "\\(0,8\\)",
+      "\\(0,8888\\dots\\)",
+      "\\(0,728728\\dots\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Kalikan pembilang dan penyebut dengan 9 agar diperoleh penyebut 99:<br>\\(\\frac{8 \\times 9}{11 \\times 9} = \\frac{72}{99}\\). Sesuai aturan, penyebut 99 menghasilkan pola dua digit berulang yaitu \\(0,727272\\dots\\)."
+  },
+  {
+    id: 16,
+    eyebrow: "Desimal Berulang Campuran",
+    title: "Periode Berulang Tertunda (Seperenam)",
+    sub: "Konversi pecahan seperenam yang memiliki penundaan periode desimal.",
+    q: "Bentuk desimal berulang dari pecahan biasa \\(\\frac{1}{6}\\) yang benar adalah...",
+    options: [
+      "\\(0,161616\\dots\\)",
+      "\\(0,16666\\dots\\)",
+      "\\(0,6666\\dots\\)",
+      "\\(0,167167\\dots\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Lakukan pembagian bersusun:<br>\\(1 \\div 6 = 0,16666\\dots\\). Pengulangan angka 6 tertunda setelah angka 1 murni pertama."
+  },
+  {
+    id: 17,
+    eyebrow: "Desimal Berulang Campuran",
+    title: "Periode Berulang Tertunda (Limaperenam)",
+    sub: "Konversi pecahan limaperenam secara bersusun.",
+    q: "Bentuk desimal berulang dari pecahan biasa \\(\\frac{5}{6}\\) yang benar adalah...",
+    options: [
+      "\\(0,858585\\dots\\)",
+      "\\(0,838383\\dots\\)",
+      "\\(0,83333\\dots\\)",
+      "\\(0,565656\\dots\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Lakukan pembagian bersusun: \\(5 \\div 6 = 0,83333\\dots\\). Sisa pembagian terus-menerus bernilai 2 yang menghasilkan pengulangan angka 3 tanpa batas."
+  },
+  {
+    id: 18,
+    eyebrow: "Persen Kompleks",
+    title: "Persentase Pecahan Tiga Puluh Tiga Sepertiga",
+    sub: "Mengonversi nilai persen campuran menuju pecahan biasa paling sederhana.",
+    q: "Berapakah bentuk pecahan paling sederhana yang setara dengan persentase berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(33\\frac{1}{3}\\%\\)</div>",
+    options: [
+      "\\(\\frac{1}{3}\\)",
+      "\\(\\frac{33}{100}\\)",
+      "\\(\\frac{3}{10}\\)",
+      "\\(\\frac{1}{33}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Ubah pecahan campuran persen menjadi pecahan biasa:<br>\\(33\\frac{1}{3}\\% = \\frac{100}{3}\\%\\).<br>Persen berarti per seratus: \\(\\frac{100}{3} \\times \\frac{1}{100} = \\frac{1}{3}\\)."
+  },
+  {
+    id: 19,
+    eyebrow: "Persen Kompleks",
+    title: "Persentase Pecahan Enam Puluh Enam Dua Pertiga",
+    sub: "Mengonversi nilai persen campuran tinggi menuju pecahan biasa.",
+    q: "Berapakah pecahan biasa paling sederhana dari nilai persentase berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(66\\frac{2}{3}\\%\\)</div>",
+    options: [
+      "\\(\\frac{66}{100}\\)",
+      "\\(\\frac{3}{5}\\)",
+      "\\(\\frac{2}{30}\\)",
+      "\\(\\frac{2}{3}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Ubah persen campuran menjadi pecahan biasa:<br>\\(66\\frac{2}{3}\\% = \\frac{200}{3}\\%\\).<br>Kalikan dengan \\(\\frac{1}{100}\\) untuk menghilangkan tanda persen:<br>\\(\\frac{200}{3} \\times \\frac{1}{100} = \\frac{2}{3}\\)."
+  },
+  {
+    id: 20,
+    eyebrow: "Persen Kompleks",
+    title: "Persentase Pecahan Enam Belas Dua Pertiga",
+    sub: "Konversi nilai persen pecahan kecil.",
+    q: "Nyatakan bentuk persentase berikut ke dalam bentuk pecahan biasa paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(16\\frac{2}{3}\\%\\)</div>",
+    options: [
+      "\\(\\frac{16}{100}\\)",
+      "\\(\\frac{1}{6}\\)",
+      "\\(\\frac{2}{15}\\)",
+      "\\(\\frac{1}{16}\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Ubah ke pecahan biasa: \\(16\\frac{2}{3}\\% = \\frac{50}{3}\\%\\).<br>Hilangkan persen: \\(\\frac{50}{3} \\times \\frac{1}{100} = \\frac{50}{300} = \\frac{1}{6}\\)."
+  },
+  {
+    id: 21,
+    eyebrow: "Persen Kompleks",
+    title: "Persentase Pecahan Delapan Puluh Tiga Sepertiga",
+    sub: "Konversi nilai persen pecahan tinggi.",
+    q: "Bentuk pecahan biasa yang setara dengan persentase di bawah ini adalah:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(83\\frac{1}{3}\\%\\)</div>",
+    options: [
+      "\\(\\frac{5}{6}\\)",
+      "\\(\\frac{83}{100}\\)",
+      "\\(\\frac{4}{5}\\)",
+      "\\(\\frac{17}{20}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Ubah ke bentuk pecahan biasa: \\(83\\frac{1}{3}\\% = \\frac{250}{3}\\%\\).<br>Hilangkan persen: \\(\\frac{250}{3} \\times \\frac{1}{100} = \\frac{250}{300} = \\frac{250 \\div 50}{300 \\div 50} = \\frac{5}{6}\\)."
+  },
+  {
+    id: 22,
+    eyebrow: "Persen Kompleks",
+    title: "Persentase Pecahan Empat Belas Dua Pertujuh",
+    sub: "Konversi pecahan sepertujuh yang menantang.",
+    q: "Tentukan bentuk pecahan biasa paling sederhana yang setara dengan persentase berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(14\\frac{2}{7}\\%\\)</div>",
+    options: [
+      "\\(\\frac{14}{100}\\)",
+      "\\(\\frac{2}{14}\\) (belum sederhana)",
+      "\\(\\frac{1}{7}\\)",
+      "\\(\\frac{1}{14}\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Ubah ke bentuk pecahan biasa: \\(14\\frac{2}{7}\\% = \\frac{100}{7}\\%\\).<br>Hilangkan persen: \\(\\frac{100}{7} \\times \\frac{1}{100} = \\frac{1}{7}\\)."
+  },
+  {
+    id: 23,
+    eyebrow: "Persen di Atas Seratus Persen",
+    title: "Konversi Persen Besar ke Pecahan Campuran",
+    sub: "Konversi nilai persen di atas seratus dengan desimal berulang.",
+    q: "Ubah bentuk persentase berikut menjadi pecahan campuran paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(111,1111\\dots\\%\\)</div>",
+    options: [
+      "\\(1\\frac{11}{100}\\)",
+      "\\(1\\frac{111}{1000}\\)",
+      "\\(1\\frac{1}{99}\\)",
+      "\\(1\\frac{1}{9}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Bagi persen dengan 100 terlebih dahulu untuk mendapatkan desimal murni:<br>\\(111,1111\\dots\\% = 1,1111\\dots\\)<br>Ubah desimal menjadi pecahan campuran:<br>\\(1,1111\\dots = 1 + 0,1111\\dots = 1\\frac{1}{9}\\)."
+  },
+  {
+    id: 24,
+    eyebrow: "Persen di Atas Seratus Persen",
+    title: "Konversi Persen Tiga Puluh Tiga Sepertiga",
+    sub: "Menyelesaikan nilai persen besar.",
+    q: "Nyatakan persentase berikut menjadi pecahan campuran paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(133,3333\\dots\\%\\)</div>",
+    options: [
+      "\\(1\\frac{33}{100}\\)",
+      "\\(1\\frac{1}{3}\\)",
+      "\\(1\\frac{3}{10}\\)",
+      "\\(\\frac{4}{3}\\) (belum berupa pecahan campuran)"
+    ],
+    correctIdx: 1, // B
+    explain: "Bagi dengan 100: \\(133,333\\dots\\% = 1,333\\dots\\).<br>Ubah ke pecahan campuran: \\(1,333\\dots = 1 + 0,333\\dots = 1\\frac{1}{3}\\)."
+  },
+  {
+    id: 25,
+    eyebrow: "Konversi Pola Panjang (Rasional Tujuh)",
+    title: "Pola Enam Digit Berulang",
+    sub: "Konversi desimal berulang terpanjang pada pembagi tujuh.",
+    q: "Pecahan biasa manakah yang paling sederhana untuk melambangkan desimal berulang berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,142857142857\\dots\\)</div>",
+    options: [
+      "\\(\\frac{1}{7}\\)",
+      "\\(\\frac{142857}{1000000}\\)",
+      "\\(\\frac{2}{7}\\)",
+      "\\(\\frac{1}{14}\\)"
+    ],
+    correctIdx: 0, // A
+    explain: "Panjang pola pengulangan adalah 6 digit (142857). Sesuai aturan generalisasi, rasionya adalah:<br>\\(\\frac{142857}{999999}\\). Jika pembilang dan penyebut disederhanakan dengan dibagi 142857, diperoleh pecahan rasional \\(\\frac{1}{7}\\)."
+  },
+  {
+    id: 26,
+    eyebrow: "Operasi Hitung Desimal Berulang",
+    title: "Penjumlahan Deret Tak Terhingga",
+    sub: "Menghitung operasi pertambahan dua buah desimal berulang secara presisi.",
+    q: "Selesaikan operasi penjumlahan desimal berulang tak terhingga berikut dan nyatakan dalam bentuk pecahan paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,2222\\dots + 0,5555\\dots\\)</div>",
+    options: [
+      "\\(\\frac{7}{10}\\)",
+      "\\(\\frac{77}{100}\\)",
+      "\\(\\frac{7}{9}\\)",
+      "\\(\\frac{7}{99}\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Ubah komponen menjadi pecahan biasa sebelum menjumlahkan:<br>\\(0,2222\\dots = \\frac{2}{9}\\)<br>\\(0,5555\\dots = \\frac{5}{9}\\)<br>Operasikan: \\(\\frac{2}{9} + \\frac{5}{9} = \\frac{7}{9}\\)."
+  },
+  {
+    id: 27,
+    eyebrow: "Operasi Hitung Desimal Berulang",
+    title: "Perkalian Deret Tak Terhingga",
+    sub: "Melakukan perkalian antar dua buah desimal berulang.",
+    q: "Tentukan hasil perkalian tak terhingga berikut dalam bentuk pecahan paling sederhana:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,3333\\dots \\times 0,6666\\dots\\)</div>",
+    options: [
+      "\\(\\frac{1}{5}\\)",
+      "\\(\\frac{2}{9}\\)",
+      "\\(\\frac{18}{100}\\)",
+      "\\(\\frac{2}{30}\\)"
+    ],
+    correctIdx: 1, // B
+    explain: "Ubah masing-masing desimal ke pecahan biasa:<br>\\(0,3333\\dots = \\frac{1}{3}\\)<br>\\(0,6666\\dots = \\frac{2}{3}\\)<br>Kalikan kedua pecahan rasional:<br>\\(\\frac{1}{3} \\times \\frac{2}{3} = \\frac{2}{9}\\)."
+  },
+  {
+    id: 28,
+    eyebrow: "Analisis Parameter Aljabar",
+    title: "Penjumlahan Komponen Rasional p + q",
+    sub: "Mencari jumlah nilai pembilang dan penyebut paling sederhana.",
+    q: "Jika desimal berulang \\(x = 0,818181\\dots\\) dinyatakan ke bentuk pecahan biasa paling sederhana \\(\\frac{p}{q}\\), berapakah nilai dari <b>\\(p + q\\)</b>?",
+    options: [
+      "20",
+      "99",
+      "18",
+      "25"
+    ],
+    correctIdx: 0, // A
+    explain: "Konversi dasar: \\(x = \\frac{81}{99}\\).<br>Sederhanakan pecahan dengan membagi pembilang dan penyebut dengan 9:<br>\\(\\frac{81 \\div 9}{99 \\div 9} = \\frac{9}{11}\\).<br>Maka, \\(p = 9\\) dan \\(q = 11\\). Hasil penjumlahan \\(p + q = 9 + 11 = 20\\)."
+  },
+  {
+    id: 29,
+    eyebrow: "Desimal Berulang Campuran Kompleks",
+    title: "Pola Berulang Tertunda (Tujuh Perdua-belas)",
+    sub: "Menyelesaikan desimal berulang campuran tertunda secara rigor.",
+    q: "Bentuk pecahan biasa paling sederhana dari desimal berulang tertunda berikut:<br><div class='center' style='font-size:1.3rem; margin:10px 0;'>\\(0,583333\\dots\\)</div> adalah...",
+    options: [
+      "\\(\\frac{583}{1000}\\)",
+      "\\(\\frac{5}{12}\\)",
+      "\\(\\frac{58}{99}\\)",
+      "\\(\\frac{7}{12}\\)"
+    ],
+    correctIdx: 3, // D
+    explain: "Misalkan \\(x = 0,583333\\dots\\).<br>Kalikan dengan 100: \\(100x = 58,3333\\dots\\).<br>Kalikan dengan 1000: \\(1000x = 583,3333\\dots\\).<br>Kurangkan: \\(1000x - 100x = 583 - 58 \\implies 900x = 525\\).<br>Sederhanakan pecahan: \\(x = \\frac{525 \\div 75}{900 \\div 75} = \\frac{7}{12}\\)."
+  },
+  {
+    id: 30,
+    eyebrow: "Aplikasi Kasus Riil",
+    title: "Analisis Diskon Toko Ritel",
+    sub: "Mengonversi bentuk porsi desimal berulang ritel menuju persen pecahan campuran.",
+    q: "Sebuah toko pakaian memberikan potongan harga sebesar \\(0,090909\\dots\\) bagian dari harga normal. Berapakah nilai diskon tersebut dalam bentuk persen pecahan campuran?",
+    options: [
+      "\\(9\\%\\)",
+      "\\(9,09\\%\\)",
+      "\\(9\\frac{1}{11}\\%\\)",
+      "\\(9\\frac{1}{9}\\%\\)"
+    ],
+    correctIdx: 2, // C
+    explain: "Bagian diskon \\(0,090909\\dots\\) dikonversikan menjadi pecahan biasa dahulu:<br>\\(\\frac{9}{99} = \\frac{1}{11}\\).<br>Ubah pecahan tersebut ke persen dengan mengalikannya dengan 100%:<br>\\(\\frac{1}{11} \\times 100\\% = \\frac{100}{11}\\% = 9\\frac{1}{11}\\%\\)."
+  },
+  // SOAL PENERAPAN BARU (31 - 40)
+  {
+    id: 31,
+    eyebrow: "Penerapan Ekonomi & Ritel",
+    title: "Perhitungan Nilai Potongan Diskon Jaket",
+    sub: "Menghitung potongan harga bersih menggunakan rasio desimal berulang.",
+    q: "Dalam obral akhir tahun, toko jaket memberi potongan harga sebesar \\(0,2222\\dots\\) bagian dari harga awal Rp 450.000,00. Berapakah besar potongan harga (diskon) dalam rupiah?",
+    options: [
+      "Rp 90.000,00",
+      "Rp 80.000,00",
+      "Rp 110.000,00",
+      "Rp 100.000,00"
+    ],
+    correctIdx: 3, // D
+    explain: "Konversikan desimal berulang \\(0,2222\\dots\\) ke pecahan biasa:<br>\\(0,2222\\dots = \\frac{2}{9}\\).<br>Hitung potongan harga:<br>\\(\\text{Diskon} = \\frac{2}{9} \\times \\text{Rp } 450.000,00 = \\text{Rp } 100.000,00\\)."
+  },
+  {
+    id: 32,
+    eyebrow: "Penerapan Kapasitas Vektor",
+    title: "Volume BBM dalam Tangki Kendaraan",
+    sub: "Menghitung volume riil liter bahan bakar dari proporsi desimal berulang.",
+    q: "Sebuah tangki bensin terisi sebesar \\(0,272727\\dots\\) bagian dari kapasitas maksimumnya. Jika kapasitas penuh tangki adalah 55 liter, berapa liter bensin yang ada di dalam tangki?",
+    options: [
+      "12 liter",
+      "14 liter",
+      "15 liter",
+      "18 liter"
+    ],
+    correctIdx: 2, // C
+    explain: "Ubah desimal berulang dua digit ke pecahan murni:<br>\\(0,272727\\dots = \\frac{27}{99} = \\frac{3}{11}\\).<br>Hitung volume bensin di tangki:<br>\\(\\text{Volume} = \\frac{3}{11} \\times 55 \\text{ liter} = 15 \\text{ liter}\\)."
+  },
+  {
+    id: 33,
+    eyebrow: "Penerapan Pembagian Keuntungan",
+    title: "Alokasi Keuntungan Investor Proyek",
+    sub: "Menghitung porsi pembagian dividen dengan periode berulang tertunda.",
+    q: "Dua investor membagi keuntungan usaha. Investor A mendapatkan porsi sebesar \\(0,416666\\dots\\) dari total keuntungan Rp 12.000.000,00. Berapakah jumlah uang yang diterima Investor A?",
+    options: [
+      "Rp 5.000.000,00",
+      "Rp 4.800.000,00",
+      "Rp 5.200.000,00",
+      "Rp 4.500.000,00"
+    ],
+    correctIdx: 0, // A
+    explain: "Konversi desimal campuran \\(x = 0,416666\\dots\\):<br>\\(10x = 4,1666\\dots\\)<br>\\(100x = 41,666\\dots\\)<br>\\(90x = 37,5 \\implies 900x = 375 \\implies x = \\frac{375}{900} = \\frac{5}{12}\\).<br>Hitung uang bagian Investor A:<br>\\(\\frac{5}{12} \\times \\text{Rp } 12.000.000,00 = \\text{Rp } 5.000.000,00\\)."
+  },
+  {
+    id: 34,
+    eyebrow: "Penerapan Kontrol Kualitas Pabrik",
+    title: "Kain Layak Jual Tekstil",
+    sub: "Menghitung jumlah produk bagus dari proporsi cacat berulang.",
+    q: "Sebuah pabrik tekstil mendapati bahwa \\(0,142857142857\\dots\\) dari total produksi kainnya cacat. Jika total produksi kain adalah 2.100 meter, berapa meter kain yang <b>layak jual (tidak cacat)</b>?",
+    options: [
+      "1.500 meter",
+      "1.600 meter",
+      "1.750 meter",
+      "1.800 meter"
+    ],
+    correctIdx: 3, // D
+    explain: "Konversikan pola 6 digit: \\(0,142857\\dots = \\frac{142857}{999999} = \\frac{1}{7}\\).<br>Bagian kain yang tidak cacat (layak jual) = \\(1 - \\frac{1}{7} = \\frac{6}{7}\\).<br>Panjang kain layak jual = \\(\\frac{6}{7} \\times 2.100 \\text{ m} = 1.800 \\text{ meter}\\)."
+  },
+  {
+    id: 35,
+    eyebrow: "Penerapan Komisi & Properti",
+    title: "Perhitungan Komisi Agen Properti",
+    sub: "Aplikasi desimal berulang sepertigabelas pada komisi penjualan.",
+    q: "Seorang agen properti menerima komisi sebesar \\(0,083333\\dots\\) dari nilai penjualan rumah seharga Rp 960.000.000,00. Berapakah nominal komisi rupiah yang diterima agen?",
+    options: [
+      "Rp 75.000.000,00",
+      "Rp 80.000.000,00",
+      "Rp 85.000.000,00",
+      "Rp 90.000.000,00"
+    ],
+    correctIdx: 1, // B
+    explain: "Selesaikan konversi \\(x = 0,083333\\dots\\):<br>\\(100x = 8,3333\\dots\\)<br>\\(10x = 0,8333\\dots\\)<br>\\(90x = 7,5 \\implies 900x = 75 \\implies x = \\frac{1}{12}\\).<br>Hitung komisi agen:<br>\\(\\frac{1}{12} \\times \\text{Rp } 960.000.000,00 = \\text{Rp } 80.000.000,00\\)."
+  },
+  {
+    id: 36,
+    eyebrow: "Penerapan Fisika Kecepatan",
+    title: "Konversi Kecepatan Rata-Rata Kendaraan",
+    sub: "Menghitung laju km/jam dari proporsi jarak tempuh per menit.",
+    q: "Sebuah mobil menempuh jarak \\(0,83333\\dots\\) km setiap 1 menit. Berapakah kecepatan rata-rata kendaraan tersebut dalam satuan kilometer per jam (km/jam)?",
+    options: [
+      "50 km/jam",
+      "48 km/jam",
+      "52 km/jam",
+      "45 km/jam"
+    ],
+    correctIdx: 0, // A
+    explain: "Ubah jarak per menit ke pecahan biasa:<br>\\(0,83333\\dots = \\frac{5}{6} \\text{ km/menit}\\).<br>Satu jam terdiri dari 60 menit, maka kecepatannya adalah:<br>\\(\\text{Kecepatan} = \\frac{5}{6} \\times 60 = 50 \\text{ km/jam}\\)."
+  },
+  {
+    id: 37,
+    eyebrow: "Penerapan Alokasi Dana Warisan",
+    title: "Pembagian Sisa Tabungan Keluarga",
+    sub: "Menghitung bagian masing-masing ahli waris setelah donasi sosial.",
+    q: "Pak Budi menyumbangkan \\(0,363636\\dots\\) bagian dari tabungannya sebesar Rp 990.000.000,00. Sisa uangnya dibagikan merata kepada 4 anaknya. Berapa rupiah yang diterima masing-masing anak?",
+    options: [
+      "Rp 145.000.000,00",
+      "Rp 150.000.000,00",
+      "Rp 157.500.000,00",
+      "Rp 162.500.000,00"
+    ],
+    correctIdx: 2, // C
+    explain: "Sumbangan sosial = \\(0,363636\\dots = \\frac{36}{99} = \\frac{4}{11}\\).<br>Sisa uang = \\(1 - \\frac{4}{11} = \\frac{7}{11}\\).<br>Total sisa rupiah = \\(\\frac{7}{11} \\times \\text{Rp } 990.000.000,00 = \\text{Rp } 630.000.000,00\\).<br>Bagian tiap anak = \\(\\text{Rp } 630.000.000,00 \\div 4 = \\text{Rp } 157.500.000,00\\)."
+  },
+  {
+    id: 38,
+    eyebrow: "Penerapan Demografi Penduduk",
+    title: "Estimasi Populasi Total Kota",
+    sub: "Menghitung total populasi dari jumlah penduduk lansia.",
+    q: "Di kota X, sebanyak \\(0,181818\\dots\\) dari total penduduk berusia di atas 60 tahun (lansia). Jika jumlah warga lansia adalah 36.000 jiwa, berapakah total jumlah penduduk kota tersebut?",
+    options: [
+      "180.000 jiwa",
+      "190.000 jiwa",
+      "210.000 jiwa",
+      "198.000 jiwa"
+    ],
+    correctIdx: 3, // D
+    explain: "Bagian lansia = \\(0,181818\\dots = \\frac{18}{99} = \\frac{2}{11}\\).<br>Misalkan total penduduk = \\(N\\), maka:<br>\\(\\frac{2}{11} N = 36.000 \\implies N = \\frac{36.000 \\times 11}{2} = 18.000 \\times 11 = 198.000 \\text{ jiwa}\\)."
+  },
+  {
+    id: 39,
+    eyebrow: "Penerapan Sains Kimia Laboratorium",
+    title: "Massa Zat Aktif dalam Larutan",
+    sub: "Menghitung massa gram bahan kimia dari sampel uji.",
+    q: "Dalam uji laboratorium, massa zat A dicatat sebesar \\(0,05555\\dots\\) bagian dari sampel larutan. Jika massa total sampel adalah 180 gram, berapa gram massa zat A tersebut?",
+    options: [
+      "15 gram",
+      "10 gram",
+      "12 gram",
+      "18 gram"
+    ],
+    correctIdx: 1, // B
+    explain: "Konversi desimal berulang \\(0,05555\\dots\\):<br>\\(x = 0,05555\\dots \\implies 10x = 0,5555\\dots \\implies 10x = \\frac{5}{9} \\implies x = \\frac{5}{90} = \\frac{1}{18}\\).<br>Massa zat A = \\(\\frac{1}{18} \\times 180 \\text{ gram} = 10 \\text{ gram}\\)."
+  },
+  {
+    id: 40,
+    eyebrow: "Penerapan Teknik Pengisian Tangki Air",
+    title: "Waktu Pengisian Tangki Pompa Air",
+    sub: "Menghitung durasi menit untuk pengisian tangki secara penuh.",
+    q: "Sebuah keran mampu mengisi \\(0,02777\\dots\\) bagian tangki air setiap menitnya. Berapa menit waktu yang dibutuhkan keran untuk mengisi tangki hingga penuh (1 bagian utuh)?",
+    options: [
+      "30 menit",
+      "45 menit",
+      "36 menit",
+      "40 menit"
+    ],
+    correctIdx: 2, // C
+    explain: "Konversi laju pengisian per menit \\(x = 0,02777\\dots\\):<br>\\(100x = 2,777\\dots\\)<br>\\(10x = 0,2777\\dots\\)<br>\\(90x = 2,5 \\implies 900x = 25 \\implies x = \\frac{25}{900} = \\frac{1}{36}\\) bagian/menit.<br>Waktu untuk mengisi 1 bagian utuh = \\(1 \\div \\frac{1}{36} = 36 \\text{ menit}\\)."
+  }
+];
+
+// Quiz Application Class
+class QuizApp {
+  constructor() {
+    this.storageKey = 'fdp_quiz_state_v3';
+    this.currentIdx = 0; // Langsung mulai di Soal 1 (index 0)
+    this.answersState = Array(QUESTIONS.length).fill(null);
+    
+    this.loadFromStorage();
+    this.init();
+  }
+
+  init() {
+    this.renderDropdown();
+    this.loadPage(this.currentIdx);
+    this.updateScoreCounter();
+
+    // Event Listener Navigasi
+    document.getElementById('btn-prev').addEventListener('click', () => this.prevPage());
+    document.getElementById('btn-next').addEventListener('click', () => this.nextPage());
+    document.getElementById('page-jump').addEventListener('change', (e) => this.jumpToPage(parseInt(e.target.value)));
+
+    // Monitoring status online / offline
+    window.addEventListener('online', () => this.updateOnlineStatus());
+    window.addEventListener('offline', () => this.updateOnlineStatus());
+    this.updateOnlineStatus();
+  }
+
+  updateOnlineStatus() {
+    const badge = document.getElementById('storage-status');
+    if (!badge) return;
+    if (navigator.onLine) {
+      badge.className = 'status-badge';
+      badge.innerHTML = '<span class="status-dot"></span><span>Tersimpan Otomatis</span>';
+    } else {
+      badge.className = 'status-badge offline';
+      badge.innerHTML = '<span class="status-dot"></span><span>Mode Luring (Offline)</span>';
+    }
+  }
+
+  saveToStorage() {
+    try {
+      const state = {
+        answersState: this.answersState,
+        currentIdx: this.currentIdx
+      };
+      localStorage.setItem(this.storageKey, JSON.stringify(state));
+    } catch (e) {
+      console.warn("Lokal storage tidak didukung atau penuh", e);
+    }
+  }
+
+  loadFromStorage() {
+    try {
+      const saved = localStorage.getItem(this.storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed.answersState) && parsed.answersState.length === QUESTIONS.length) {
+          this.answersState = parsed.answersState;
+        }
+        if (typeof parsed.currentIdx === 'number' && parsed.currentIdx >= 0 && parsed.currentIdx < QUESTIONS.length) {
+          this.currentIdx = parsed.currentIdx;
+        }
+      }
+    } catch (e) {
+      console.warn("Gagal memuat state dari localStorage", e);
+    }
+  }
+
+  renderDropdown() {
+    const select = document.getElementById('page-jump');
+    select.innerHTML = '';
+
+    QUESTIONS.forEach((q, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = `Soal ${q.id}`;
+      select.appendChild(opt);
+    });
+  }
+
+  loadPage(index) {
+    if (index < 0 || index >= QUESTIONS.length) return;
+    this.currentIdx = index;
+    this.saveToStorage();
+
+    const contentContainer = document.getElementById('page-content');
+    const q = QUESTIONS[index];
+    const answered = this.answersState[index];
+    
+    let optionsHtml = q.options.map((opt, oIdx) => {
+      let btnClass = '';
+      if (answered !== null) {
+        if (oIdx === q.correctIdx) {
+          btnClass = 'correct';
+        } else if (answered === oIdx) {
+          btnClass = 'wrong';
+        }
+      }
+
+      return `
+        <button class="option-btn ${btnClass}" onclick="app.submitAnswer(${oIdx})" ${answered !== null ? 'disabled' : ''}>
+          <span class="badge-letter">${['A', 'B', 'C', 'D'][oIdx]}</span>
+          <span>${opt}</span>
+        </button>
+      `;
+    }).join('');
+
+    let feedbackClass = 'feedback-container';
+    let feedbackTitle = '';
+    if (answered !== null) {
+      feedbackClass += ' show ' + (answered === q.correctIdx ? 'correct-style' : 'wrong-style');
+      feedbackTitle = answered === q.correctIdx ? '✓ Jawaban Anda Benar!' : '✗ Jawaban Belum Tepat!';
+    }
+
+    contentContainer.innerHTML = `
+      <div class="card">
+        <div class="eyebrow">${q.eyebrow}</div>
+        <h1 class="page-title" style="font-size:1.35rem; font-weight:700; margin-top:4px;">Soal ${q.id}: ${q.title}</h1>
+        <p class="page-sub" style="margin-bottom:16px;">${q.sub}</p>
+
+        <p style="font-size:1.02rem; line-height:1.7; margin-bottom:20px;">${q.q}</p>
+
+        <div class="option-grid">${optionsHtml}</div>
+
+        <div class="${feedbackClass}" id="feedback-panel">
+          <div class="explanation-title">${feedbackTitle}</div>
+          <div class="explanation-body">
+            <b>Pembahasan & Langkah Aljabar:</b><br>
+            ${q.explain}
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3 style="font-size:.9rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); margin:0;">Peta Navigasi Soal</h3>
+          <span style="font-size:.78rem; color:var(--text-muted);">Klik nomor untuk meloncat</span>
+        </div>
+        <div class="grid-navigation" id="grid-nav"></div>
+      </div>
+    `;
+
+    this.renderGridNavigation();
+    
+    // Update tombol navigasi
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    btnPrev.disabled = (index === 0);
+    btnNext.disabled = (index === QUESTIONS.length - 1);
+    btnNext.textContent = (index === QUESTIONS.length - 1) ? "Soal Terakhir" : "Lanjut ›";
+
+    this.updateProgressFill();
+    this.renderMath(contentContainer);
+    document.getElementById('page-jump').value = index;
+  }
+
+  submitAnswer(optIdx) {
+    if (this.answersState[this.currentIdx] !== null) return;
+    this.answersState[this.currentIdx] = optIdx;
+    this.saveToStorage();
+    this.updateScoreCounter();
+    this.loadPage(this.currentIdx);
+  }
+
+  countCorrectAnswers() {
+    return this.answersState.reduce((acc, ans, qIdx) => {
+      return acc + (ans === QUESTIONS[qIdx].correctIdx ? 1 : 0);
+    }, 0);
+  }
+
+  updateScoreCounter() {
+    const totalCorrect = this.countCorrectAnswers();
+    document.getElementById('score-counter').textContent = `Benar: ${totalCorrect} / ${QUESTIONS.length}`;
+  }
+
+  updateProgressFill() {
+    const progressPercent = Math.round(((this.currentIdx + 1) / QUESTIONS.length) * 100);
+    document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+    document.getElementById('page-counter').textContent = `Soal ${this.currentIdx + 1} dari ${QUESTIONS.length}`;
+  }
+
+  renderGridNavigation() {
+    const grid = document.getElementById('grid-nav');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    QUESTIONS.forEach((q, idx) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot';
+      dot.textContent = q.id;
+      
+      const answered = this.answersState[idx];
+      if (idx === this.currentIdx) {
+        dot.classList.add('active');
+      } else if (answered !== null) {
+        if (answered === q.correctIdx) {
+          dot.classList.add('answered-correct');
+        } else {
+          dot.classList.add('answered-wrong');
+        }
+      }
+
+      dot.onclick = () => this.loadPage(idx);
+      grid.appendChild(dot);
+    });
+  }
+
+  renderMath(element) {
+    try {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(element, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    } catch (e) {
+      console.warn("KaTeX rendering warning:", e);
+    }
+  }
+
+  nextPage() {
+    if (this.currentIdx < QUESTIONS.length - 1) {
+      this.loadPage(this.currentIdx + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  prevPage() {
+    if (this.currentIdx > 0) {
+      this.loadPage(this.currentIdx - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  jumpToPage(index) {
+    this.loadPage(index);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  confirmReset() {
+    if (confirm("Apakah Anda yakin ingin menghapus semua jawaban dan mengulang kuis dari Soal 1?")) {
+      this.resetQuiz();
+    }
+  }
+
+  resetQuiz() {
+    this.answersState = Array(QUESTIONS.length).fill(null);
+    localStorage.removeItem(this.storageKey);
+    this.updateScoreCounter();
+    this.loadPage(0);
+  }
+}
+
+let app;
+window.onload = function() {
+  app = new QuizApp();
+};
+</script>
+</body>
+</html>
